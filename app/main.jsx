@@ -8,6 +8,7 @@ import App from './components/App';
 import Signup from './components/Signup';
 import Login from './components/Login';
 import Welcome from './components/Welcome';
+import Rules from './components/Rules';
 import SphinxContainer from './components/SphinxContainer';
 import {getRiddle} from './reducers/riddle';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -32,6 +33,7 @@ render(
           <Route path="/home" component={Welcome} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
+          <Route path="/rules" component={Rules} />
           <Route path="/sphinx" component={SphinxContainer} onEnter={onSphinxEnter}/>
         </Route>
       </Router>

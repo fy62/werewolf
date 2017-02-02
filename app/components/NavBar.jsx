@@ -30,6 +30,11 @@ class Navbar extends Component {
           labelStyle={{color:'white'}}
           containerElement={<Link to={'login'} />}
         />
+        <Button
+          label="rules"
+          labelStyle={{color:'white'}}
+          containerElement={<Link to={'rules'} />}
+        />
       </div>
     )
   }
