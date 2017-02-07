@@ -1,26 +1,26 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import NightImage from './NightImage';
-import Riddle from './Riddle';
-import {addImage,updateGuessed} from '../reducers/riddle';
 import ChatBox from './ChatBox';
 import PlayersList from './PlayersList';
 
 const ChatContainer = props => {
 
   return(
-    <div className={props.game.day? 'day' : 'night'}>
-      <div className="chatContainer">
+
+    <div className={props.game.day ? 'day container' : 'night container'}>
+      <div className="chatHalf">
         {
           (props.game.day || props.user.night || !props.user.alive)
           ? <ChatBox user={props.user} messages={props.game.villager} players={props.game.users} day={props.game.day}/>
           : <NightImage/>
         }
       </div>
-      <div className="playerslist">
+      <div className="players-container column-4">
         <PlayersList user={props.user} players={props.game.users} day={props.game.day}/>
       </div>
     </div>
+
   )
 }
 

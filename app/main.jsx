@@ -27,6 +27,7 @@ render(
           <Route path="/newgame" component={NewGame} />
           <Route path='/joingame' component={JoinGame} />
           <Route path="/rules" component={Rules} />
+          <Route path="/chat" component={ChatContainer} />
           <Route path="/chat/:id" component={ChatContainer} />
         </Route>
       </Router>

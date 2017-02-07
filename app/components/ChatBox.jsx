@@ -33,7 +33,6 @@ class ChatBox extends Component {
     const messages = this.props.messages;
 
     return (
-
       <div id="chat-window-container">
         <ul
           className="chat-window"

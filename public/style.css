@@ -13,10 +13,7 @@ body {
   box-sizing: border-box;
 }
 
-
 /* ----- NAVBAR ----- */
-
-
 .navbar {
 /*
   display: flex;
@@ -42,21 +39,21 @@ body {
   color: #FFF;
 }
 
-
 /* ----- LANDING PAGE ----- */
 .splash {
   height: 100vh;
-  display: flex;
   padding-top: 5%;
-  background: #000;
-  align-items: flex-start;
-  flex-direction: column;
-  justify-content: center;
-  color: #FFF;
+
   background-image: url('/images/landingPage.jpg');
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
+  color: #FFF;
+
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .landingTextBox {
@@ -73,15 +70,12 @@ body {
   font-size: 3rem;
 }
 
-
-
 .landingButton{
   margin-left: 12%;
   margin-top: 3rem;
 }
 
 /* ----- NEW GAME ----- */
-
 .newGame {
   height: 100vh;
   background-image: url('/images/fullMoon.jpg');
@@ -89,7 +83,6 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   padding-top: 5%;
-
 }
 
 .formContain {
@@ -110,25 +103,34 @@ body {
   float: right;
 }
 /* ----- CHAT CONTAINER ----- */
-
-.chatContainer {
+.chatHalf {
   width: 70%;
-  margin-top: 10%;
+  height: 80%;
+  text-align: left;
+  margin-bottom: 10px;
+  margin-top: 75px;
+  /*position: fixed;*/
+
+  /*display: inline-block;*/
+  /*margin: auto;
+  margin-left: 3px;
   display: inline-block;
   text-align: left;
-  box-sizing: border-box;
+  box-sizing: border-box;*/
 }
 
-.chatContainer img {
-  margin-left: 15%;
-  margin-right: 15%;
-  width: 70%;
+.chatHalf img {
+  margin: auto;
+  width: 75%;
 }
 
 #chat-window-container {
-  margin-left: 10%;
-  margin-right: 25%;
-  height:80%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  /*margin: auto;*/
 }
 
 .night #chat-window-container {
@@ -140,7 +142,6 @@ body {
 }
 
 .chat-window {
-  height: 300px;
   overflow-y: scroll;
   padding-left: 0;
 }
@@ -148,7 +149,8 @@ body {
 .day, .night {
   width: 100%;
   height: 100vh;
-  text-align: center;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .day {
@@ -167,9 +169,10 @@ body {
 
 
 /* ----- CHAT BOX ----- */
-
-#chat-input {
-  margin-top: 5%;
+#chat-input form {
+  margin: auto;
+  display: flex;
+  flex-direction: row;
 }
 
 .btn {
@@ -194,9 +197,9 @@ body {
 .avatar {
   height: 30px;
   width: 30px;
-  border: 1px solid #000;
   flex-shrink: 0;
 }
+
 .night .avatar {
   border-color: #FFF;
 }
@@ -237,14 +240,48 @@ body {
 
 
 /* ----- PLAYERS LEGEND ----- */
+.players-container {
+  margin-top: 75px;
+  margin-left: 25px;
+  margin-bottom: 10px;
+  height: 50%;
 
-.playerslist {
-  opacity: .8;
-  width: 20%;
-  margin-top: 10%;
-  margin-right: 5%;
-  float: right;
-  font-family: 'IM Fell English SC', serif;
+  /*opacity: .8;*/
+  /*width: 20%;*/
+}
+
+.players-list {
+  background-color: white;
+  opacity: 0.8;
+  height: 70%;
+  width: 100%;
+  padding: 5px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  overflow-y: scroll;
+}
+
+.players{
+  width: 100%;
+  height: 100%;
+  min-height: 45px;
+  margin: 5px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.avatar {
+  width: 45px;
+  height: 45px;
+}
+
+.avatar img {
+  width: 100%;
 }
 
 
@@ -255,27 +292,36 @@ body {
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
+
+  padding-top: 5%;
+
+  display: flex;
+  justify-content: center;
+
 }
 
 .rules-container {
-  width: 70%;
-  margin-left: 15%;
-  padding-top : 10%;
+  width: 75%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  padding: 5%;
+
+  text-align : center;
+  background: rgba(0, 0, 0, .5);
+  color: #FFF;
 }
 
-.rules-paper {
+/*.rules-paper {
   text-align : center;
   padding-top : 5%;
   margin-bottom: 5%;
   background: rgba(0, 0, 0, .5);
   color: #FFF;
-}
+}*/
 
 .rules-header {
   color : #D6C967
 }
-
-
 
 .row {
   margin-right: 5%;
@@ -296,73 +342,111 @@ body {
 
 
 /*-----  MEDIA QUERIES ----- */
-
-
-/*Desktops */
+/* Desktops */
 @media (min-width : 769px) {
   .home{
     display: flex;
   }
-
 }
 
-/*Tablets */
+/* Tablets */
 @media only screen and (max-width : 768px) {
   .home{
     width: 100%;
     display: block;
     overflow: hidden;
   }
-
 }
 
 /* Phones */
 @media only screen and (max-width : 570px) and (orientation: portrait) {
-  /* SPHINX PAGE */
+
+  /* SPLASH PAGE */
   .home{
     width: 100%;
     display: block;
     overflow: hidden;
   }
 
-
-  /* FORM PAGES */
-  .formContain {
-    width: 95%;
-    margin: auto;
+  /* CHAT PAGES */
+  .day .night {
+    display: flex;
+    justify-content: center;
   }
 
-  .loginPaper, .signUpPaper{
+  .chatHalf {
+    display: flex;
+    width: 95%;
+    height: 55%;
+    margin-top: 65px;
+  }
+
+  .chat-window {
     width: 100%;
   }
+
+  .players-container {
+    margin: 0px;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 20%;
+  }
+
+  .players-list {
+    flex-direction: row;
+    overflow-x: scroll;
+    overflow-y: visible;
+
+    justify-content: center;
+
+    height: auto;
+    width: 250px;
+  }
+
+  .players{
+    flex-direction: column;
+    min-width: 60px;
+    /*height: 0px;*/
+  }
+
+  /* NEW GAME PAGES */
+  .formContain {
+    width: 85%;
+    margin: auto;
+    margin-top: 15%;
+  }
+
 }
 
 @media only screen and (max-width : 700px) and (orientation: landscape) {
-  /* SPHINX PAGE */
+  /* SPLASH PAGE */
   .home{
     width: 100%;
     display: block;
     overflow: hidden;
   }
 
-
-  /* FORM PAGES */
-  .loginPaper {
-    width: 100%;
-  }
-
+  /* NEW GAME PAGES */
   .formContain {
     width: 80%;
     height: 100%;
     margin: auto;
   }
 
-  .signUpPaper {
-    width: 100%;
+  .chatHalf {
+    display: flex;
+    height: 75%;
+    margin-top: 65px;
   }
+
+  .players-container {
+    margin-top: 65px;
+    height: 75%;
+  }
+
 }
-
-
-
 
 

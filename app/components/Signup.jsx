@@ -3,7 +3,7 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import {signUp} from 'APP/app/reducers/auth';
 import {connect} from 'react-redux';
-import Navbar from './Navbar';
+
 import Paper from 'material-ui/Paper';
 
 

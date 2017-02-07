@@ -1,9 +1,6 @@
-import React, { Component} from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Link, browserHistory } from 'react-router';
-
-import AppBar from 'material-ui/AppBar';
-import Button from 'material-ui/FlatButton';
 import ActionHome from 'material-ui/svg-icons/action/home';
 import IconButton from 'material-ui/IconButton';
 
@@ -23,7 +20,7 @@ const Navbar = () => {
             hoverColor={'#6E0300'}
           />
         </IconButton>
-        <h3 className='navBtnLeft'>Werewolf</h3>
+        <h3 className='navBtnLeft'>Nightfall</h3>
       </div>
       <div className="navBtnRight">
        <Link className='icons' to={'newgame'}>Start A Game</Link>
@@ -32,7 +29,6 @@ const Navbar = () => {
     </div>
   )
 }
-
 
 /* -----------------    CONTAINER     ------------------ */
 
@@ -44,12 +40,6 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    login: (user, pw) => {
-      dispatch(login(user, pw))
-    },
-    logout: () => {
-      dispatch(logout())
-    }
   }
 };
 

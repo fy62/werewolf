@@ -2,11 +2,15 @@
 
 <html lang="en">
   <head>
-    <title>Werewolves</title>
+    <meta charset="utf-8" ></meta>
+    <meta name="theme-color" content="#360457">
+    <title>Nightfall</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='/normalize.css' rel='stylesheet' >
     <link href="https://fonts.googleapis.com/css?family=IM+Fell+English+SC|IM+Fell+French+Canon" rel="stylesheet">
+    <link href="/grid.css" rel="stylesheet" />
     <link href="/style.css" rel="stylesheet" />
+    <link rel="manifest" href="manifest.json">
     <script src="https://www.gstatic.com/firebasejs/3.6.7/firebase.js"></script>
     <script>
       // Initialize Firebase
@@ -20,9 +24,7 @@
     firebase.initializeApp(config);
 
     </script>
-
     <script src="/bundle.js" defer></script>
-
   </head>
   <body>
     <div id="app"></div>

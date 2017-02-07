@@ -15,6 +15,9 @@ const START_GAME = 'START_GAME';
 const LEADER_START = 'LEADER_START';
 const ADD_USER = 'ADD_USER';
 const UPDATE_USER = 'UPDATE_USER';
+const SCRYING = 'SCRYING';
+const SAVING = 'SAVING';
+const KILLING = 'KILLING';
 
 /* ----------------- CONSTANTS: SETTINGS ------------------ */
 
@@ -29,8 +32,8 @@ const colors =
 ];
 
 // milliseconds for various setTimeouts
-const timeToRead = 5000;  // 5000
-const timeForNight = 7000; // 10000
+const timeToRead = 5000;  // 5,000
+const timeForNight = 7000; // 10,000
 const timeForDay = 10000; // 100,000 -> this is 1m40s
 
 // shuffle: helper function, used for assigning roles
@@ -90,6 +93,7 @@ export default class Moderator {
 
   constructor(gameName, leaderName, uid) {
     this.gameName = gameName;
+    this.gameId = '';
     this.leaderId = uid;
 
     this.players = [];
@@ -111,6 +115,19 @@ export default class Moderator {
       const playerAction = action.val();
 
       switch (playerAction.type) {
+
+        case ADD_USER: // make this
+          this.handleJoin(playerAction)
+          break;
+
+        case START_GAME: // make this
+          this.handleStart()
+          break;
+
+        case LEADER_START: // make this
+          this.handleLeaderStart()
+          break;
+
         case RECIEVE_MESSAGE:
           if (playerAction.role === 'seer' && playerAction.target) {
             this.handleScry(playerAction)
@@ -127,16 +144,12 @@ export default class Moderator {
           this.handleVote(playerAction)
           break;
 
-        case ADD_USER: // make this
-          this.handleJoin(playerAction)
+        case SCRYING:
+          this.handleScry(playerAction)
           break;
 
-        case LEADER_START: // make this
-          this.handleLeaderStart()
-          break;
-
-        case START_GAME: // make this
-          this.handleStart()
+        case SAVING:
+          this.handleSave(playerAction)
           break;
 
         default:
@@ -198,45 +211,48 @@ export default class Moderator {
     this.moderate(player, 'public', 'adduser')
   }
 
-  handleScry(seerAction) {
-    const sender = this.players[seerAction.user];
+  handleScry(playerAction) {
+    const sender = this.players[playerAction.user];
 
-    if (seerAction.role === 'seer' && sender.role === 'seer' && !this.day) {
+    if (playerAction.user.id === this.seerId && !this.day) {
 
-      let scry = {
-        type: RECIEVE_MESSAGE,
-        user: sender.name,
-        message: `/peek ${seerAction.target}`,
-        role: sender.role,
-      }
-      this.moderate(scry, this.seerId, 'peeking')
+      // this is already done in reducer. sendmessageaction is dispatched
+      // let scry = {
+      //   type: RECIEVE_MESSAGE,
+      //   user: sender.name,
+      //   message: `/peek ${playerAction.target}`,
+      //   role: sender.role,
+      // }
+      // this.moderate(scry, this.seerId, 'peeking')
 
       if (this.didScry) {
 
         let msg = 'You have already exhausted your mystical powers for tonight. Go to bed and try again tomorrow.'
         this.narrate(msg, sender.role, sender.uid, 'already scryed')
+
       } else {
 
         this.didScry = true;
-        let werewolfStatus = this.players[seerAction.target].role === 'werewolf';
-        let msg = werewolfStatus ? `${seerAction.target} definitely howls at the moon` : `${seerAction.target} wouldn't hurt a fly`
+        let werewolfStatus = this.players[playerAction.target].role === 'werewolf';
+        let msg = werewolfStatus ? `${playerAction.target} definitely howls at the moon` : `${playerAction.target} wouldn't hurt a fly`
         this.narrate(msg, sender.role, sender.uid, 'scry results')
       }
     }
   }
 
-  handleSave(priestAction) {
-    const sender = this.players[priestAction.user];
+  handleSave(playerAction) {
+    const sender = this.players[playerAction.user];
 
-    if (priestAction.role === 'priest' && sender.role === 'priest' && !this.day) {
+    if (playerAction.user.id === this.priestId && !this.day) {
 
-      let save = {
-        type: RECIEVE_MESSAGE,
-        user: sender.name,
-        message: `/save ${priestAction.target}`,
-        role: sender.role,
-      }
-      this.moderate(save, this.priestId, 'saving')
+      // this is already done in reducer. sendmessageaction is dispatched
+      // let save = {
+      //   type: RECIEVE_MESSAGE,
+      //   user: sender.name,
+      //   message: `/save ${playerAction.target}`,
+      //   role: sender.role,
+      // }
+      // this.moderate(save, this.priestId, 'saving')
 
       if (this.didSave) {
         let msg = 'You have already exhausted your holy powers for tonight. Go to bed and try again tomorrow.'
@@ -245,9 +261,9 @@ export default class Moderator {
 
       } else {
         this.didSave = true;
-        this.players[priestAction.target].immunity = true;
+        this.players[playerAction.target].immunity = true;
 
-        let msg = `A divine shield surrounds ${priestAction.target}, protecting them from the werewolves for tonight.`
+        let msg = `A divine shield surrounds ${playerAction.target}, protecting them from the werewolves for tonight.`
 
         this.narrate(msg, sender.role, sender.uid, 'saving')
       }
@@ -321,9 +337,8 @@ export default class Moderator {
     else {
       chosen.alive = false;
       let kill = {
-          type: UPDATE_USER,
-          name: chosen.name,
-          alive: false,
+          type: KILLING,
+          uid: chosen.uid
         }
       this.moderate(kill, 'public', 'death')
       msg = `Everyone wakes up and discovers that ${this.chosen} was eaten by werewolves last night. Avenge their death!`

@@ -1,5 +1,3 @@
-//Boilerplate to be revised.
-
 import React from 'react';
 
 import TextField from 'material-ui/TextField';
@@ -28,7 +26,7 @@ export const Login = ({ login }) => (
           floatingLabelText="Password"
         />
         <br />
-        <Button 
+        <Button
           label="Login"
           name="submit"
           type="submit"

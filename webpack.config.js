@@ -28,5 +28,8 @@ module.exports = {
         loader: 'json-loader'
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.EnvironmentPlugin(['NODE_ENV', 'CLIENT_ID', 'CLIENT_SECRET'])
+  ]
 };
