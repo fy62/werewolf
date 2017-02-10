@@ -1,3 +1,5 @@
+import {updateWinner} from '../reducers/game';
+
 /*
   actions
   settings -- use this to toggle options for testing
@@ -22,6 +24,7 @@ const SAVING = 'SAVING';
 const KILLING = 'KILLING';
 const ADD_GAMEID = 'ADD_GAMEID';
 const RECIEVE_USER = 'RECIEVE_USER';
+const UPDATE_WINNER = 'UPDATE_WINNER';
 
 /* ----------------- SETTINGS ------------------ */
 
@@ -202,6 +205,10 @@ export default class Moderator {
 
         case SAVING:
           this.handleSave(playerAction)
+          break;
+
+        case UPDATE_WINNER:
+          this.handleUpdateWinner(winner)
           break;
 
         default:
@@ -526,6 +533,12 @@ Type '/help' to ask me for help`
     }
   }
 
+/* -------------------- Victory ------------------ */
+
+handleUpdateWinner(winner) {
+
+}
+
 /* ----------- Game Logic: Vote Tally, Day/Night, Killing Players, Game Over --------------- */
 
   tallyVotes(role, methodOfMurder) {
@@ -664,13 +677,21 @@ Type '/help' to ask me for help`
     }
     this.moderate(timeswitch, 'public', 'day time')
     this.narrate(`The sun rises. A new day begins for the village.`, 'public')
+
     this.resolveNightEvents();
 
     //werewolves may have won at this point
     this.checkWin();
+
     if (this.winner === 'werewolves'){
       let msg = `Werewolves have overrun your village and there is no hope for the innocent.`
-      this.narrate(msg, 'public', null, 'wolf win')
+      this.narrate(msg, 'public', null, 'wolf win');
+      //changes background image to show winners
+      let win = {
+        type: UPDATE_WINNER,
+        winner: this.winner
+      }
+      this.moderate(win, 'public', 'update winner');
     }
 
     else {
@@ -702,11 +723,23 @@ Type '/help' to ask me for help`
 
     if (this.winner === 'werewolves'){
       msg = `The village chose to kill a fellow villager... Werewolves have overrun your village and there is no hope for the innocent.`
-      this.narrate(msg, 'public', null, 'wolf win')
+      this.narrate(msg, 'public', null, 'wolf win');
+      //changes background image to show winners
+      let win = {
+        type: UPDATE_WINNER,
+        winner: this.winner
+      }
+      this.moderate(win, 'public', 'update winner');
     }
     else if (this.winner === 'villagers'){
       msg = `The last werewolf has been killed! You have exterminated all the werewolves from your village and can sleep peacefully now.`
-      this.narrate(msg, 'public', null, 'village win')
+      this.narrate(msg, 'public', null, 'village win');
+      //changes background image to show winners
+      let win = {
+        type: UPDATE_WINNER,
+        winner: this.winner
+      }
+      this.moderate(win, 'public', 'update winner');
     } else {
 
       this.chosen = null;

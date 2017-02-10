@@ -8,16 +8,15 @@ import Moderator from '../moderator/moderator';
 let mod;
 
 const initialState = {
-  games: [],
-
   gameId: '',
   takenNames: [],
   gameInProgress: false,
   player: {},
   // users: { [playerName: String]: User }
   users: {},
-
   day: true,
+  backgroundImage: 'day',
+  winner: '',
   messages: [],
   voteTarget: '',
 }
@@ -62,6 +61,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         moderator: state.player.uid === action.uid ? new Moderator(...action.config) : null,
+        backgroundImage: 'day'
       }
 
     case RECIEVE_USER:
@@ -111,11 +111,26 @@ const reducer = (state = initialState, action) => {
       }
 
     case SWITCH_TIME:
+      let image;
+      if (state.winner) {
+        image = state.winner === 'villagers' ? 'day villagers-victory' : 'day werewolves-victory';
+      }
+      else {
+        image = action.timeofday === 'daytime' ? 'day' : 'night';
+      }
       return {
         ...state,
         day: action.timeofday === 'daytime',
+        backgroundImage: image,
         messages: [],
         voteTarget: '',
+      }
+
+    case UPDATE_WINNER:
+      return {
+        ...state,
+        winner: action.winner,
+        backgroundImage: action.winner === 'villagers' ? 'day villagers-victory' : 'day werewolves-victory'
       }
 
     case SELECT_VOTE:
@@ -155,6 +170,7 @@ const SWITCH_TIME = 'SWITCH_TIME';
 const SCRYING = 'SCRYING';
 const SAVING = 'SAVING';
 const KILLING = 'KILLING';
+const UPDATE_WINNER ='UPDATE_WINNER';
 
 const SET_MODERATOR = 'SET_MODERATOR'
 
@@ -182,6 +198,10 @@ export const firebaseUpdate = update => {
 
 export const recieveGameId = gameId => ({
   type: RECIEVE_GAMEID, gameId
+})
+
+export const updateWinner = winner => ({
+  type: UPDATE_WINNER, winner
 })
 
 export const recieveTakenName = takenName => ({

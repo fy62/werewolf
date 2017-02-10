@@ -14,9 +14,10 @@ import {
 } from '../reducers/game'
 
 const ChatContainer = props => {
+let backgroundImage = props.game.backgroundImage + " " + "container";
 
   return(
-    <div className={props.game.day ? 'day container' : 'night container'}>
+    <div className={backgroundImage}>
       <div className="chatHalf">
         {
           (props.game.day || !props.player.alive || props.player.role !== 'villager')

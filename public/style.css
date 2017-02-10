@@ -201,6 +201,21 @@ body {
   background-size: cover;
 }
 
+.villagers-victory {
+  background-image: url('/images/villagers-victory.jpg');
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.werewolves-victory {
+  background-image: url('/images/werewolves-victory.jpg');
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
 
 /* ----- CHAT BOX ----- */
 #chat-input form {
