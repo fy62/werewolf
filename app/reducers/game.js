@@ -14,7 +14,10 @@ const initialState = {
 
   day: true,
   messages: [],
+  vote: {},
+
   voteTarget: '',
+  winner:''
 }
 
 
@@ -115,6 +118,12 @@ const reducer = (state = initialState, action) => {
         voteTarget: action.target,
       }
 
+    case UPDATE_WINNER:
+      return {
+        ...state,
+        winner: action.winner
+      }
+
     default:
       return state
   }
@@ -146,6 +155,7 @@ const SWITCH_TIME = 'SWITCH_TIME';
 const SCRYING = 'SCRYING';
 const SAVING = 'SAVING';
 const KILLING = 'KILLING';
+const UPDATE_WINNER = 'UPDATE_WINNER';
 
 const SET_MODERATOR = 'SET_MODERATOR'
 

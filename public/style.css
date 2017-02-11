@@ -200,6 +200,30 @@ body {
   background-size: cover;
 }
 
+/* ----- VICTORY MODALS ----- */
+
+.victorymodal {
+  padding: 0% !important;
+  margin: 0% !important;
+  border: 0% !important;
+  height: 600px !important;
+}
+
+#werewolveswon {
+  background-image: url('/images/werewolvesvictory.jpg') !important;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+#villagerswon {
+  background-image: url('/images/villagersvictory.jpg') !important;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 
 /* ----- CHAT BOX ----- */
 #chat-input form {

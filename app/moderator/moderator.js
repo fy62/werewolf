@@ -22,6 +22,7 @@ const SAVING = 'SAVING';
 const KILLING = 'KILLING';
 const ADD_GAMEID = 'ADD_GAMEID';
 const RECIEVE_USER = 'RECIEVE_USER';
+const UPDATE_WINNER ='UPDATE_WINNER';
 const UPDATE_PLAYER = 'UPDATE_PLAYER';
 
 /* ----------------- SETTINGS ------------------ */
@@ -727,6 +728,15 @@ Type '/help' to ask me for help.`
 
     //werewolves may have won at this point
     this.checkWin();
+    //if there is a winner, send winner update action to fb
+    if (this.winner) {
+      let winaction = {
+      type: UPDATE_WINNER,
+      winner: this.winner
+      };
+      this.moderate(winaction, 'public', 'update winner');
+    }
+
     if (this.winner === 'werewolves'){
       let msg = `Werewolves have overrun your village and there is no hope for the innocent.`
       this.narrate(msg, 'public', null, 'wolf win')
@@ -758,6 +768,14 @@ Type '/help' to ask me for help.`
     }
     this.moderate(kill, 'public', 'death')
     this.checkWin();
+    //if there is a winner, send winner update action to fb
+    if (this.winner) {
+      let winaction = {
+      type: UPDATE_WINNER,
+      winner: this.winner
+      };
+      this.moderate(winaction, 'public', 'update winner');
+    }
 
     if (this.winner === 'werewolves'){
       msg = `The village chose to kill a fellow villager... Werewolves have overrun your village and there is no hope for the innocent.`

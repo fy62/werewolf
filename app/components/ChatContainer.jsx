@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import NightImage from './NightImage';
 import ChatBox from './ChatBox';
 import PlayersList from './PlayersList';
+import VictoryModal from './VictoryModal';
+
 import {
   sendMessageAction,
   sendVoteAction,
@@ -52,6 +54,7 @@ export class ChatContainer extends React.Component {
               />
             : <NightImage/>
           }
+          {this.props.game.winner ? <VictoryModal winner={this.props.game.winner} /> : null}
         </div>
         <div className="players-container column-4">
           <PlayersList
