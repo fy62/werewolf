@@ -1,4 +1,4 @@
-#Try with your friends online at playnightfall.com
+# Deployed at playnightfall.com
 
 Nightfall: A realtime chat-based game built with React, Redux, and Firebase. Players don't have to log in and can immediately start playing. Host a private game with your friends or join a game of strangers.
 
