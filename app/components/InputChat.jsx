@@ -103,7 +103,7 @@ export default class Chat extends Component {
       }
 
 // if it's a morning message that is not a command, this always goes to the public villager channel
-      else if (this.props.day) {
+      else if (this.props.day || this.props.winner) {
         this.props.sendMessage(this.props.player.name, msg, 'public');
       }
 

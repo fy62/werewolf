@@ -226,6 +226,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  transition: background .8s ease-in-out;
   /*margin: auto;*/
 }
 
@@ -247,6 +248,7 @@ body {
   height: 100vh;
   justify-content: center;
   align-items: flex-start;
+  transition: background-image .8s ease-in-out;
 }
 
 .day {
@@ -283,19 +285,17 @@ body {
 
 /* ----- VICTORY MODALS ----- */
 .victory-dialog {
-  text-transform: uppercase !important;
+  top: -200px !important;
 }
 
 .victory-modal-container {
-  padding: 0% !important;
-  margin: 0% !important;
   width: 100%;
-  height: 100%
+  height: auto;
 }
 
 .victory-modal {
   width: inherit;
-  height: 100%;
+  height: auto;
 }
 
 /* ----- CHAT BOX ----- */

@@ -181,8 +181,7 @@ export default class Moderator {
           })
         }
         else {
-          console.log(this.deadNames);
-          if (this.deadNames.indexOf(person.val().name) === -1) this.narrate(`${person.val().name.toUpperCase()} is back!`)
+          if ((this.deadNames.indexOf(person.val().name) === -1) && !this.winner) this.narrate(`${person.val().name.toUpperCase()} is back!`)
         }
 
         const endKey = session.ref.child('end')
@@ -202,12 +201,15 @@ export default class Moderator {
           // debug('it looks like', person.key, 'may be dead...')
           const timeout = 30000 - (Date.now() - end.val())
           // debug(`${person.key}, you have ${timeout} seconds to respond...`)
-          this.narrate(`Oh no, ${person.val().name.toUpperCase()} got lost in the woods... [disconnected]`)
+          if ((this.deadNames.indexOf(person.val().name) === -1) && !this.winner) this.narrate(`Oh no, ${person.val().name.toUpperCase()} got lost in the woods... [disconnected]`)
 
           // if user doesn't return before setTimeout, they are dead
           toeBell = setTimeout(
             () => {
               // debug(`${person.key} is an ex-parrot.`)
+              // don't kill a person after a game has ended
+              if (this.winner) return;
+
               if (this.deadNames.indexOf(person.val().name) === -1) {
                 this.narrate(`${person.val().name.toUpperCase()} fell down a well and died!`)
                 let kill = {
@@ -219,7 +221,7 @@ export default class Moderator {
                 }
                 this.moderate(kill, 'public', 'death')
 
-                let theplayer, allplayers;
+                let theplayer, allplayers = {};
 
                 if (this.inGameLoop) {
                   theplayer = this.players[person.val().name];
@@ -259,18 +261,19 @@ export default class Moderator {
                     winner: this.winner
                     };
                     this.moderate(winaction, 'public', 'update winner');
+
+                    let msg;
+                    if (theplayer.role !== 'werewolf'){
+                      msg = `With the death of ${person.val().name.toUpperCase()}, werewolves have overrun your village and there is no hope for the innocent.`
+                      this.narrate(msg, 'public', null, 'wolf win')
+                    }
+                    else if (theplayer.role === 'werewolf'){
+                      msg = `The last werewolf has drowned! The village is safe and you can sleep peacefully now.`
+                      this.narrate(msg, 'public', null, 'village win')
+                    }
+                    const dayornight = (this.day) ? 'day' : 'night';
+                    clearTimeout(this[`${dayornight}Timers`][this.dayNum])
                   }
-                  let msg;
-                  if (theplayer.role !== 'werewolf'){
-                    msg = `With the death of ${person.val().name.toUpperCase()}, werewolves have overrun your village and there is no hope for the innocent.`
-                    this.narrate(msg, 'public', null, 'wolf win')
-                  }
-                  else if (theplayer.role === 'werewolf'){
-                    msg = `The last werewolf has drowned! The village is safe and you can sleep peacefully now.`
-                    this.narrate(msg, 'public', null, 'village win')
-                  }
-                  const dayornight = (this.day) ? 'day' : 'night';
-                  clearTimeout(this[`${dayornight}Timers`][this.dayNum])
                 }
                 session.ref.update({moderated: true})
               }
@@ -366,6 +369,9 @@ export default class Moderator {
   // ref = the address in storeActions, in a string,
   moderate(action, ref, error) {
     let channel = ref ? ref : 'public'
+
+    if ((error === 'msg') && (this.deadNames.indexOf(action.user) !== -1)) action.color = 'rgba(128, 128, 128, .5)';
+
     firebase.database().ref(`games/${this.gameName}/storeActions/${channel}`)
     .push(action)
     .catch(err => console.error(`Error: moderator sending ${error} action to firebase`, err))
@@ -406,7 +412,7 @@ export default class Moderator {
     if (this.didAssign) return;
     else if (this.playerNames.length < 5) {
       this.narrate('You need a minimum 5 active players to start.', 'public', 'public', '/roles')
-      return;
+      // return;
     }
     else if (this.playerNames.length > 30) {
       this.narrate('You have too many players to begin a game (max 30).', 'public', 'public', '/roles')

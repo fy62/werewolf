@@ -105,7 +105,7 @@ const PlayersList = (props) => {
                   <div
                     className="player-name"
                     style={ { textDecoration: dead(players[person]) } } >
-                    {players[person].name === player.name ? `**${players[person].name}**` : players[person].name }
+                    {players[person].name === player.name ? `:${players[person].name}:` : players[person].name }
                   </div>
                 </div>
              </FlatButton>

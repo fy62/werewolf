@@ -57,6 +57,7 @@ export class ChatContainer extends React.Component {
               players={this.props.game.users}
               day={this.props.game.day}
               gameloop={this.props.game.gameInProgress}
+              winner={this.props.game.winner}
 
               sendMessage={this.props.sendMessage}
               sendVote={this.props.sendVote}

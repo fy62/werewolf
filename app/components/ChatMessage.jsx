@@ -11,7 +11,7 @@ function ChatMessage(props) {
 
     <li
       className="message"
-      style={message.user === 'moderator' ? {background: color} : {}}
+      style={(message.user === 'moderator' || !players[message.user].alive) ? {background: color} : {}}
     >
       <div className="avatar">
 

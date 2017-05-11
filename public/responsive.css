@@ -133,6 +133,10 @@
 
   }
 
+  .victory-dialog {
+    top: -100px !important;
+  }
+
   /* NEW GAME PAGES */
 
   .newGame {
@@ -251,6 +255,16 @@
 
   .player-btn {
     min-width: 90px;
+  }
+
+  .victory-dialog {
+    top: 0px !important;
+  }
+
+  .victory-modal {
+    /* don't show image for landscape phone */
+    width: 0px;
+    height: 0px;
   }
 
     /* RULES PAGE */

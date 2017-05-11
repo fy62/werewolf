@@ -33,7 +33,7 @@ export default class DialogExampleModal extends React.Component {
       <div>
         <Dialog className='victory-dialog'
           title={`${this.props.winner} won!`}
-          titleStyle={{fontFamily: 'IM Fell English SC'}}
+          titleStyle={{fontFamily: 'IM Fell English SC', textTransform: 'uppercase'}}
           actions={actions}
           open={this.state.open}
           onRequestClose={this.handleClose}
