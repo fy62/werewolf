@@ -14,7 +14,7 @@ With added features such as a purgatory chatroom, easy voting buttons, and a mob
 
 # Presentation
 
-[![Grace Hopper Presentation](http://i64.tinypic.com/2mrunfn.png)](https://youtu.be/0HpvJyPeAM0)
+[![Grace Hopper Presentation](https://i.ytimg.com/vi/0HpvJyPeAM0/hqdefault.jpg)](https://youtu.be/0HpvJyPeAM0)
 
 # Notes
 
